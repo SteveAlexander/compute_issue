@@ -1,43 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show compute;
 
-import 'content.dart';
+Future<Content> parse() async {
+  return await compute<String, Content>(_parse, null);
+}
+
+Content _parse(String json) {
+  return Content(PartOfDay.afternoon);
+}
+
+class Content {
+  Content(partOfDay) : this.partOfDay = Set()..add(partOfDay);
+  final Set<PartOfDay> partOfDay;
+}
+
+enum PartOfDay {
+  morning,
+  afternoon,
+  evening
+}
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            ContentViewer()
-          ],
-        ),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => 
+      Directionality(
+        textDirection: TextDirection.ltr,
+        child: Center(
+          child: ContentViewer()
+        )
+      );
 }
 
 class ContentViewer extends StatelessWidget {
