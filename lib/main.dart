@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'content.dart';
 import 'parse.dart';
-import 'part_of_day.dart';
 
 void main() => runApp(MyApp());
 
